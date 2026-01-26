@@ -3,6 +3,9 @@ package duke;
 import java.util.Scanner;
 
 public class Chloe {
+    private String[] items = new String[100];
+    private int itemCount = 0;
+
     public void run(){
         Scanner scanner = new Scanner(System.in);
 
@@ -16,7 +19,17 @@ public class Chloe {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             }
-            System.out.println(input);
+
+            if(input.equals("list")){
+                for(int i = 0; i < itemCount; i++){
+                    System.out.println((i + 1) + ". " + items[i]);
+                }
+                continue;
+            }
+            System.out.println("added:" + input);
+            items[itemCount] = input;
+            itemCount++;
+
         }
     }
 }
