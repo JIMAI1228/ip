@@ -1,0 +1,5 @@
+todo read
+deadline homework /by Sunday
+event swim /from Mon 2pm /to 4pm
+list
+bye
