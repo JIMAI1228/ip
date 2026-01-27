@@ -1,9 +1,10 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Chloe {
-    private Task[] tasks = new Task[100];
+    private ArrayList<Task> tasks = new ArrayList<>();
     private int taskCount = 0;
 
     public void run(){
@@ -24,7 +25,7 @@ public class Chloe {
                 if (input.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < taskCount; i++) {
-                        System.out.println("    " + (i + 1) + ". " + tasks[i].toString());
+                        System.out.println("    " + (i + 1) + ". " + tasks.get(i).toString());
                     }
                     continue;
                 }
@@ -33,10 +34,29 @@ public class Chloe {
                     throw new ChloeException("The description of a mask cannot be empty.");
                 }
 
+                if(input.equals("delete")){
+                    throw new ChloeException("The description of a delete cannot be empty.");
+                }
+
+                if(input.startsWith("delete ")){
+                    int index = Integer.parseInt(input.substring(7)) - 1;
+
+                    if(index < 0 || index >= tasks.size()){
+                        throw new ChloeException("This task number does not exist.");
+                    }
+
+                    Task removed = tasks.remove(index);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("    " + removed);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    taskCount--;
+                    continue;
+                }
+
                 if (input.startsWith("mark ")) {
                     int index = Integer.parseInt(input.substring(5)) - 1;
-                    tasks[index].markAsDone();
-                    Task t = tasks[index];
+                    tasks.get(index).markAsDone();
+                    Task t = tasks.get(index);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  [X] " + t.getDescription());
                     continue;
@@ -48,8 +68,8 @@ public class Chloe {
 
                 if (input.startsWith("unmark ")) {
                     int index = Integer.parseInt(input.substring(7)) - 1;
-                    tasks[index].markAsNotDone();
-                    Task t = tasks[index];
+                    tasks.get(index).markAsNotDone();
+                    Task t = tasks.get(index);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  [ ] " + t.getDescription());
                     continue;
@@ -61,8 +81,8 @@ public class Chloe {
 
                 if (input.startsWith("todo ")) {
                     String desc = input.substring(5);
-                    tasks[taskCount] = new ToDo(desc);
-                    Task t = tasks[taskCount];
+                    Task t = new ToDo(desc);
+                    tasks.add(t);
                     taskCount++;
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + t.toString());
@@ -76,8 +96,8 @@ public class Chloe {
 
                 if (input.startsWith("deadline ")) {
                     String[] parts = input.substring(9).split(" /by ");
-                    tasks[taskCount] = new Deadline(parts[0], parts[1]);
-                    Task t = tasks[taskCount];
+                    Task t = new Deadline(parts[0], parts[1]);
+                    tasks.add(t);
                     taskCount++;
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + t.toString());
@@ -91,8 +111,8 @@ public class Chloe {
 
                 if (input.startsWith("event ")) {
                     String[] parts = input.substring(6).split(" /from | /to ");
-                    tasks[taskCount] = new Event(parts[0], parts[1], parts[2]);
-                    Task t = tasks[taskCount];
+                    Task t = new Event(parts[0], parts[1], parts[2]);
+                    tasks.add(t);
                     taskCount++;
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + t.toString());
