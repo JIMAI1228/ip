@@ -3,10 +3,12 @@ package duke;
 public class Task {
     private String description;
     private boolean isDone;
+    private TaskType type;
 
-    public Task(String description){
+    public Task(String description, TaskType type){
         this.description = description;
         this.isDone = false;
+        this.type = type
     }
 
     public void markAsDone(){
@@ -27,6 +29,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatus() + "] " + description;
+        return type.getIcon() + " [" + getStatus() + "] " + description;
     }
 }
