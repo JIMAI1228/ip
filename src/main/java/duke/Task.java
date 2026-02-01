@@ -33,6 +33,6 @@ public class Task {
     }
 
     public String toFileString() {
-        return "T | " + (isDone ? "1" : "0") + "|" + description;
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 }
