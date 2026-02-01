@@ -8,7 +8,7 @@ public class Task {
     public Task(String description, TaskType type){
         this.description = description;
         this.isDone = false;
-        this.type = type
+        this.type = type;
     }
 
     public void markAsDone(){
@@ -30,5 +30,9 @@ public class Task {
     @Override
     public String toString() {
         return type.getIcon() + " [" + getStatus() + "] " + description;
+    }
+
+    public String toFileString() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 }
