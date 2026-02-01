@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Chloe {
-    private ArrayList<Task> tasks = new ArrayList<>();
-    private int taskCount = 0;
+    private final Storage storage = new Storage();
+    private final ArrayList<Task> tasks = new ArrayList<>(storage.load());
 
     public void run(){
         Scanner scanner = new Scanner(System.in);
@@ -24,7 +24,7 @@ public class Chloe {
 
                 if (input.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
+                    for (int i = 0; i < tasks.size(); i++) {
                         System.out.println("    " + (i + 1) + ". " + tasks.get(i).toString());
                     }
                     continue;
@@ -46,10 +46,10 @@ public class Chloe {
                     }
 
                     Task removed = tasks.remove(index);
+                    storage.save(tasks);
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("    " + removed);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    taskCount--;
                     continue;
                 }
 
@@ -57,6 +57,7 @@ public class Chloe {
                     int index = Integer.parseInt(input.substring(5)) - 1;
                     tasks.get(index).markAsDone();
                     Task t = tasks.get(index);
+                    storage.save(tasks);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  [X] " + t.getDescription());
                     continue;
@@ -70,6 +71,7 @@ public class Chloe {
                     int index = Integer.parseInt(input.substring(7)) - 1;
                     tasks.get(index).markAsNotDone();
                     Task t = tasks.get(index);
+                    storage.save(tasks);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  [ ] " + t.getDescription());
                     continue;
@@ -83,10 +85,10 @@ public class Chloe {
                     String desc = input.substring(5);
                     Task t = new ToDo(desc);
                     tasks.add(t);
-                    taskCount++;
+                    storage.save(tasks);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + t.toString());
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + t);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     continue;
                 }
 
@@ -98,10 +100,10 @@ public class Chloe {
                     String[] parts = input.substring(9).split(" /by ");
                     Task t = new Deadline(parts[0], parts[1]);
                     tasks.add(t);
-                    taskCount++;
+                    storage.save(tasks);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + t.toString());
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + t);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     continue;
                 }
 
@@ -113,10 +115,10 @@ public class Chloe {
                     String[] parts = input.substring(6).split(" /from | /to ");
                     Task t = new Event(parts[0], parts[1], parts[2]);
                     tasks.add(t);
-                    taskCount++;
+                    storage.save(tasks);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + t.toString());
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + t);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     continue;
                 }
 
