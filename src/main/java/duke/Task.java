@@ -1,17 +1,20 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Task {
     private String description;
     private boolean isDone;
     private TaskType type;
 
-    public Task(String description, TaskType type){
+    public Task(String description, TaskType type) {
         this.description = description;
         this.isDone = false;
         this.type = type;
     }
 
-    public void markAsDone(){
+    public void markAsDone() {
         isDone = true;
     }
 
@@ -34,5 +37,9 @@ public class Task {
 
     public String toFileString() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;
+    }
+
+    public boolean occursOn(LocalDate date) {
+        return false;
     }
 }
