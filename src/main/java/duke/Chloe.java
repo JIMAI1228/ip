@@ -1,5 +1,8 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -98,7 +101,9 @@ public class Chloe {
 
                 if (input.startsWith("deadline ")) {
                     String[] parts = input.substring(9).split(" /by ");
-                    Task t = new Deadline(parts[0], parts[1]);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    LocalDateTime date = LocalDateTime.parse(parts[1], formatter);
+                    Task t = new Deadline(parts[0], date);
                     tasks.add(t);
                     storage.save(tasks);
                     System.out.println("Got it. I've added this task:");
