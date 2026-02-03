@@ -1,6 +1,8 @@
 package duke;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +32,16 @@ public class Storage {
                         task = new ToDo(desc);
                         break;
                     case "D":
-                        task = new Deadline(desc, parts[3]);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime date = LocalDateTime.parse(parts[3], formatter);
+                        task = new Deadline(desc, date);
                         break;
                     case "E":
-                        String[] fromTo = parts[3].split("-");
-                        task = new Event(desc, fromTo[0], fromTo[1]);
+                        String[] fromTo = parts[3].split("to");
+                        DateTimeFormatter printer = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime from = LocalDateTime.parse(fromTo[0], printer);
+                        LocalDateTime to = LocalDateTime.parse(fromTo[1], printer);
+                        task = new Event(desc, from, to);
                         break;
                     default:
                         continue;
