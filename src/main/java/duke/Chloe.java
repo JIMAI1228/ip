@@ -118,7 +118,10 @@ public class Chloe {
 
                 if (input.startsWith("event ")) {
                     String[] parts = input.substring(6).split(" /from | /to ");
-                    Task t = new Event(parts[0], parts[1], parts[2]);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    LocalDateTime from = LocalDateTime.parse(parts[1], formatter);
+                    LocalDateTime to = LocalDateTime.parse(parts[2], formatter);
+                    Task t = new Event(parts[0], from, to);
                     tasks.add(t);
                     storage.save(tasks);
                     System.out.println("Got it. I've added this task:");
@@ -126,6 +129,40 @@ public class Chloe {
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     continue;
                 }
+
+                if (input.startsWith("on ")) {
+                    LocalDate date;
+                    try {
+                        DateTimeFormatter inFormatter =
+                                DateTimeFormatter.ofPattern("d/M/yyyy");
+                        date = LocalDate.parse(input.substring(3).trim(), inFormatter);
+                    } catch (Exception e) {
+                        System.out.println("Please use date format: d/M/yyyy (e.g., 2/12/2019)");
+                        continue;
+                    }
+
+                    DateTimeFormatter outFormatter =
+                            DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+                    System.out.println("Here are the tasks on " + date.format(outFormatter) + ":");
+
+                    int count = 1;
+                    boolean found = false;
+                    for (Task t : tasks) {
+                        if (t.occursOn(date)) {
+                            System.out.println(count + ". " + t);
+                            count++;
+                            found = true;
+                        }
+                    }
+
+                    if (!found) {
+                        System.out.println("No tasks on this date.");
+                    }
+                    continue;
+                }
+
+
 
                 throw new ChloeException("I'm sorry, I don't know what that means.");
 

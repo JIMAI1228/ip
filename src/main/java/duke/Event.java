@@ -1,10 +1,14 @@
 package duke;
 
-public class Event extends Task{
-    private String from;
-    private String to;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String from, String to){
+public class Event extends Task{
+    private LocalDateTime from;
+    private LocalDateTime to;
+
+    public Event(String description, LocalDateTime from, LocalDateTime to){
         super(description, TaskType.EVENT);
         this.from = from;
         this.to = to;
@@ -12,11 +16,21 @@ public class Event extends Task{
 
     @Override
     public String toString(){
-        return super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        return super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 
     @Override
     public String  toFileString(){
-        return "E | " + (getStatus().equals("X") ? "1" : "0") + " | " + getDescription() + " | " + from + "-" + to;
+        return "E | " + (getStatus().equals("X") ? "1" : "0") + " | " + getDescription() + " | " + from + "to" + to;
     }
+
+    @Override
+    public boolean occursOn(LocalDate date) {
+        return from.toLocalDate().equals(date)
+                || to.toLocalDate().equals(date)
+                || (from.toLocalDate().isBefore(date)
+                && to.toLocalDate().isAfter(date));
+    }
+
 }
