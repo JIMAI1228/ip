@@ -4,31 +4,28 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Chloe {
     private final Storage storage = new Storage();
     private final ArrayList<Task> tasks = new ArrayList<>(storage.load());
+    private final Ui ui = new Ui();
 
     public void run(){
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Hello! I'm Chloe");
-        System.out.println("What can I do for you?");
+        ui.showWelcome();
 
         while (true) {
             try {
-                String input = scanner.nextLine();
+                String input = ui.readCommand();
 
                 if (input.equals("bye")) {
-                    System.out.println("Bye. Hope to see you again soon!");
+                    ui.sayBye();
                     break;
                 }
 
                 if (input.equals("list")) {
-                    System.out.println("Here are the tasks in your list:");
+                    ui.showLine("Here are the tasks in your list:");
                     for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println("    " + (i + 1) + ". " + tasks.get(i).toString());
+                        ui.showLine("    " + (i + 1) + ". " + tasks.get(i).toString());
                     }
                     continue;
                 }
@@ -50,9 +47,9 @@ public class Chloe {
 
                     Task removed = tasks.remove(index);
                     storage.save(tasks);
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println("    " + removed);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    ui.showLine("Noted. I've removed this task:");
+                    ui.showLine("    " + removed);
+                    ui.showLine("Now you have " + tasks.size() + " tasks in the list.");
                     continue;
                 }
 
@@ -61,8 +58,8 @@ public class Chloe {
                     tasks.get(index).markAsDone();
                     Task t = tasks.get(index);
                     storage.save(tasks);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  [X] " + t.getDescription());
+                    ui.showLine("Nice! I've marked this task as done:");
+                    ui.showLine("  [X] " + t.getDescription());
                     continue;
                 }
 
@@ -75,8 +72,8 @@ public class Chloe {
                     tasks.get(index).markAsNotDone();
                     Task t = tasks.get(index);
                     storage.save(tasks);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  [ ] " + t.getDescription());
+                    ui.showLine("OK, I've marked this task as not done yet:");
+                    ui.showLine("  [ ] " + t.getDescription());
                     continue;
                 }
 
@@ -89,9 +86,9 @@ public class Chloe {
                     Task t = new ToDo(desc);
                     tasks.add(t);
                     storage.save(tasks);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + t);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    ui.showLine("Got it. I've added this task:");
+                    ui.showLine("  " + t);
+                    ui.showLine("Now you have " + tasks.size() + " tasks in the list.");
                     continue;
                 }
 
@@ -106,9 +103,9 @@ public class Chloe {
                     Task t = new Deadline(parts[0], date);
                     tasks.add(t);
                     storage.save(tasks);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + t);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    ui.showLine("Got it. I've added this task:");
+                    ui.showLine("  " + t);
+                    ui.showLine("Now you have " + tasks.size() + " tasks in the list.");
                     continue;
                 }
 
@@ -124,9 +121,9 @@ public class Chloe {
                     Task t = new Event(parts[0], from, to);
                     tasks.add(t);
                     storage.save(tasks);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + t);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    ui.showLine("Got it. I've added this task:");
+                    ui.showLine("  " + t);
+                    ui.showLine("Now you have " + tasks.size() + " tasks in the list.");
                     continue;
                 }
 
@@ -137,27 +134,27 @@ public class Chloe {
                                 DateTimeFormatter.ofPattern("d/M/yyyy");
                         date = LocalDate.parse(input.substring(3).trim(), inFormatter);
                     } catch (Exception e) {
-                        System.out.println("Please use date format: d/M/yyyy (e.g., 2/12/2019)");
+                        ui.showLine("Please use date format: d/M/yyyy (e.g., 2/12/2019)");
                         continue;
                     }
 
                     DateTimeFormatter outFormatter =
                             DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-                    System.out.println("Here are the tasks on " + date.format(outFormatter) + ":");
+                    ui.showLine("Here are the tasks on " + date.format(outFormatter) + ":");
 
                     int count = 1;
                     boolean found = false;
                     for (Task t : tasks) {
                         if (t.occursOn(date)) {
-                            System.out.println(count + ". " + t);
+                            ui.showLine(count + ". " + t);
                             count++;
                             found = true;
                         }
                     }
 
                     if (!found) {
-                        System.out.println("No tasks on this date.");
+                        ui.showLine("No tasks on this date.");
                     }
                     continue;
                 }
@@ -167,7 +164,7 @@ public class Chloe {
                 throw new ChloeException("I'm sorry, I don't know what that means.");
 
             } catch (ChloeException e) {
-                System.out.println(e.getMessage());
+                ui.showError(e.getMessage());
             }
         }
     }

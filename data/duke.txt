@@ -1,2 +1,3 @@
-T | 0 | read book
-E | 0 | meeting | 2pm-4pm
+T | 1 | read
+D | 0 | homework | 2025-12-02T15:00
+E | 0 | trip | 2025-12-01T16:00to2025-12-03T16:00
