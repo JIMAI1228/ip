@@ -1,0 +1,28 @@
+package duke.Command;
+
+import duke.*;
+
+public class UnmarkCommand extends Command{
+    private final int index;
+
+    public UnmarkCommand(String arg) throws ChloeException{
+        try {
+            index = Integer.parseInt(arg.trim()) - 1;
+        } catch (Exception e) {
+            throw new ChloeException("This is an Invalid task number.");
+        }
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChloeException{
+        if (index < 0 || index >= tasks.size()) {
+            throw new ChloeException("This is an Invalid task number.");
+        }
+
+        tasks.get(index).markAsNotDone();
+        Task t = tasks.get(index);
+        storage.save(tasks.getTasks());
+        ui.showLine("OK, I've marked this task as not done yet:");
+        ui.showLine("  [ ] " + t.getDescription());
+    }
+}
