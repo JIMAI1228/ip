@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
-    private TaskType type;
+    private final TaskType type;
 
     public Task(String description, TaskType type) {
         this.description = description;

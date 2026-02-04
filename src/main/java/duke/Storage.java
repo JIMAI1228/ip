@@ -32,15 +32,13 @@ public class Storage {
                         task = new ToDo(desc);
                         break;
                     case "D":
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                        LocalDateTime date = LocalDateTime.parse(parts[3], formatter);
+                        LocalDateTime date = LocalDateTime.parse(parts[3]);
                         task = new Deadline(desc, date);
                         break;
                     case "E":
-                        String[] fromTo = parts[3].split("to");
-                        DateTimeFormatter printer = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                        LocalDateTime from = LocalDateTime.parse(fromTo[0], printer);
-                        LocalDateTime to = LocalDateTime.parse(fromTo[1], printer);
+                        String[] fromTo = parts[3].split("｜");
+                        LocalDateTime from = LocalDateTime.parse(fromTo[0]);
+                        LocalDateTime to = LocalDateTime.parse(fromTo[1]);
                         task = new Event(desc, from, to);
                         break;
                     default:
