@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Chloe {
     private final Storage storage = new Storage();
-    private final ArrayList<Task> tasks = new ArrayList<>(storage.load());
+    private final TaskList tasks = new TaskList(storage.load());
     private final Ui ui = new Ui();
 
     public void run(){
@@ -46,7 +46,7 @@ public class Chloe {
                     }
 
                     Task removed = tasks.remove(index);
-                    storage.save(tasks);
+                    storage.save(tasks.getTasks());
                     ui.showLine("Noted. I've removed this task:");
                     ui.showLine("    " + removed);
                     ui.showLine("Now you have " + tasks.size() + " tasks in the list.");
@@ -57,7 +57,7 @@ public class Chloe {
                     int index = Integer.parseInt(input.substring(5)) - 1;
                     tasks.get(index).markAsDone();
                     Task t = tasks.get(index);
-                    storage.save(tasks);
+                    storage.save(tasks.getTasks());
                     ui.showLine("Nice! I've marked this task as done:");
                     ui.showLine("  [X] " + t.getDescription());
                     continue;
@@ -71,7 +71,7 @@ public class Chloe {
                     int index = Integer.parseInt(input.substring(7)) - 1;
                     tasks.get(index).markAsNotDone();
                     Task t = tasks.get(index);
-                    storage.save(tasks);
+                    storage.save(tasks.getTasks());
                     ui.showLine("OK, I've marked this task as not done yet:");
                     ui.showLine("  [ ] " + t.getDescription());
                     continue;
@@ -85,7 +85,7 @@ public class Chloe {
                     String desc = input.substring(5);
                     Task t = new ToDo(desc);
                     tasks.add(t);
-                    storage.save(tasks);
+                    storage.save(tasks.getTasks());
                     ui.showLine("Got it. I've added this task:");
                     ui.showLine("  " + t);
                     ui.showLine("Now you have " + tasks.size() + " tasks in the list.");
@@ -102,7 +102,7 @@ public class Chloe {
                     LocalDateTime date = LocalDateTime.parse(parts[1], formatter);
                     Task t = new Deadline(parts[0], date);
                     tasks.add(t);
-                    storage.save(tasks);
+                    storage.save(tasks.getTasks());
                     ui.showLine("Got it. I've added this task:");
                     ui.showLine("  " + t);
                     ui.showLine("Now you have " + tasks.size() + " tasks in the list.");
@@ -120,7 +120,7 @@ public class Chloe {
                     LocalDateTime to = LocalDateTime.parse(parts[2], formatter);
                     Task t = new Event(parts[0], from, to);
                     tasks.add(t);
-                    storage.save(tasks);
+                    storage.save(tasks.getTasks());
                     ui.showLine("Got it. I've added this task:");
                     ui.showLine("  " + t);
                     ui.showLine("Now you have " + tasks.size() + " tasks in the list.");
@@ -145,7 +145,7 @@ public class Chloe {
 
                     int count = 1;
                     boolean found = false;
-                    for (Task t : tasks) {
+                    for (Task t : tasks.getTasks()) {
                         if (t.occursOn(date)) {
                             ui.showLine(count + ". " + t);
                             count++;
