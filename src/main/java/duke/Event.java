@@ -22,7 +22,7 @@ public class Event extends Task{
 
     @Override
     public String  toFileString(){
-        return "E | " + (getStatus().equals("X") ? "1" : "0") + " | " + getDescription() + " | " + from + "to" + to;
+        return "E | " + (getStatus().equals("X") ? "1" : "0") + " | " + getDescription() + " | " + from + "｜" + to;
     }
 
     @Override
