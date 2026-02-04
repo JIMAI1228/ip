@@ -1,7 +1,6 @@
-package duke;
+package duke.task;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Task {
     private final String description;

@@ -1,6 +1,11 @@
-package duke.Command;
+package duke.command;
 
 import duke.*;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
+import duke.ui.Ui;
 
 public class TodoCommand extends Command{
     private final String description;

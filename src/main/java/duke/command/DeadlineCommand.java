@@ -1,29 +1,31 @@
-package duke.Command;
+package duke.command;
 
 import duke.*;
+import duke.storage.Storage;
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class EventCommand extends Command{
+public class DeadlineCommand extends Command{
     private final String desc;
-    private final LocalDateTime fromDate;
-    private final LocalDateTime toDate;
+    private final LocalDateTime date;
 
-    public EventCommand(String input) throws ChloeException{
-        String[] parts = input.substring(6).split(" /from | /to ");
+    public DeadlineCommand(String input) throws ChloeException{
+        String[] parts = input.substring(9).split(" /by ");
 
         if(parts.length < 2){
-            throw new ChloeException("Event requires /from ... /to ...");
+            throw new ChloeException("Deadline requires /by ...");
         }
 
-        this.desc = parts[1];
+        desc = parts[0];
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
-        try {
-            this.fromDate = LocalDateTime.parse(parts[1], formatter);
-            this.toDate = LocalDateTime.parse(parts[2], formatter);
+        try{
+            this.date = LocalDateTime.parse(parts[1], formatter);
         } catch (Exception e) {
             throw new ChloeException("Please use date form in d/M/yyyy HHmm.");
         }
@@ -31,7 +33,7 @@ public class EventCommand extends Command{
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage){
-        Task t = new Event(desc, fromDate, toDate);
+        Task t = new Deadline(desc, date);
         tasks.add(t);
         storage.save(tasks.getTasks());
         ui.showLine("Got it. I've added this task:");

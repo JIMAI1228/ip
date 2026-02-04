@@ -1,10 +1,11 @@
-package duke;
+package duke.parser;
 
-import duke.Command.*;
+import duke.ChloeException;
+import duke.command.*;
 
 public class Parser {
 
-    public static Command parse(String input) throws ChloeException{
+    public static Command parse(String input) throws ChloeException {
         String[] parts = input.split(" ", 2);
         String cmd = parts[0];
 

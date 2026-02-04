@@ -1,6 +1,10 @@
 package duke;
 
-import duke.Command.Command;
+import duke.command.Command;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 public class Chloe {
     private final Storage storage = new Storage();
