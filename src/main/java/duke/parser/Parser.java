@@ -79,6 +79,12 @@ public class Parser {
 
                 return new EventCommand(input);
 
+            case "find":
+                if (parts.length < 2) {
+                    throw new ChloeException("Keyword cannot be empty.");
+                }
+                return new FindCommand(parts[1]);
+
             default:
                 throw new ChloeException("I'm sorry, I don't know what that means.");
         }
