@@ -3,8 +3,21 @@ package duke.parser;
 import duke.ChloeException;
 import duke.command.*;
 
+/**
+ * Parses user input strings and converts them into executable Command objects.
+ * <p>
+ * This class acts as a factory that interprets user commands and creates
+ * the corresponding Command subclass.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param input Full command entered by the user.
+     * @return Command object representing the user instruction.
+     * @throws ChloeException If the command is invalid or missing required arguments.
+     */
     public static Command parse(String input) throws ChloeException {
         String[] parts = input.split(" ", 2);
         String cmd = parts[0];
