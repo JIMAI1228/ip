@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-    private final String filePath = "./data/duke.txt";
+    private final String FILE_PATH = "./data/duke.txt";
 
     public List<Task> load(){
         List<Task> tasks = new ArrayList<>();
 
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
         if(!file.exists()){
             file.getParentFile().mkdirs();
             return tasks;
@@ -62,7 +62,7 @@ public class Storage {
     }
 
     public void save(List<Task> tasks){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))){
             for(Task t: tasks){
                 bw.write(t.toFileString());
                 bw.newLine();

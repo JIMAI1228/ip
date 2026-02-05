@@ -1,7 +1,15 @@
 package duke.parser;
 
 import duke.ChloeException;
-import duke.command.*;
+import duke.command.Command;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.command.DeleteCommand;
+import duke.command.DeadlineCommand;
+import duke.command.TodoCommand;
+import duke.command.EventCommand;
 
 public class Parser {
 
