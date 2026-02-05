@@ -10,23 +10,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Handles loading tasks from disk and saving tasks back to disk.
- * <p>
- * Tasks are stored in a text file using a simple line-based format.
- */
 public class Storage {
-
-    /**
-     * File path where task data is stored.
-     */
     private final String filePath = "./data/duke.txt";
 
-    /**
-     * Loads tasks from the storage file.
-     *
-     * @return a list of tasks loaded from disk, or an empty list if file does not exist
-     */
     public List<Task> load(){
         List<Task> tasks = new ArrayList<>();
 
@@ -75,11 +61,6 @@ public class Storage {
         return tasks;
     }
 
-    /**
-     * Saves the given list of tasks to disk.
-     *
-     * @param tasks the list of tasks to save
-     */
     public void save(List<Task> tasks){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))){
             for(Task t: tasks){
