@@ -28,7 +28,7 @@ public class TaskList {
      *
      * @param load list of tasks loaded from storage
      */
-    public TaskList(List<Task> load){
+    public TaskList(List<Task> load) {
         this.tasks = new ArrayList<>(load);
     }
 
@@ -37,7 +37,7 @@ public class TaskList {
      *
      * @return size of the task list
      */
-    public int size(){
+    public int size() {
         return tasks.size();
     }
 
@@ -47,7 +47,7 @@ public class TaskList {
      * @param index index of the task to retrieve
      * @return the task at the given index
      */
-    public Task get(int index){
+    public Task get(int index) {
         return tasks.get(index);
     }
 
@@ -57,7 +57,7 @@ public class TaskList {
      * @param index index of the task to remove
      * @return the removed task
      */
-    public Task remove(int index){
+    public Task remove(int index) {
         return tasks.remove(index);
     }
 
@@ -66,7 +66,7 @@ public class TaskList {
      *
      * @param task the task to be added
      */
-    public void add(Task task){
+    public void add(Task task) {
         tasks.add(task);
     }
 

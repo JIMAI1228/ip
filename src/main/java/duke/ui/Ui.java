@@ -18,7 +18,7 @@ public class Ui {
     /**
      * Displays the welcome message when the program starts.
      */
-    public void showWelcome(){
+    public void showWelcome() {
         System.out.println("Hello! I'm Chloe");
         System.out.println("What can I do for you?");
     }
@@ -28,7 +28,7 @@ public class Ui {
      *
      * @return the command entered by the user
      */
-    public String readCommand(){
+    public String readCommand() {
         return scanner.nextLine();
     }
 
@@ -37,7 +37,7 @@ public class Ui {
      *
      * @param s the message to display
      */
-    public void showLine(String s){
+    public void showLine(String s) {
         System.out.println(s);
     }
 
@@ -46,14 +46,14 @@ public class Ui {
      *
      * @param msg the error message
      */
-    public void showError(String msg){
+    public void showError(String msg) {
         System.out.println(msg);
     }
 
     /**
      * Displays the goodbye message before exiting the application.
      */
-    public void sayBye(){
+    public void sayBye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 }

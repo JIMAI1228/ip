@@ -1,7 +1,16 @@
 package duke;
 
+/**
+ * Entry point of the Chloe application.
+ */
 public class Main {
-    public static void main(String[] args){
+
+    /**
+     * Launches the Chloe application.
+     *
+     * @param args command line arguments
+     */
+    public static void main(String[] args) {
         Chloe chloe = new Chloe();
         chloe.run();
     }

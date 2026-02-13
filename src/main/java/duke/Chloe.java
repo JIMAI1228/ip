@@ -34,7 +34,7 @@ public class Chloe {
      * Reads user commands, parses them into Command objects,
      * executes the commands, and exits when an ExitCommand is issued.
      */
-    public void run(){
+    public void run() {
         ui.showWelcome();
         boolean isExit = false;
 

@@ -19,7 +19,7 @@ public abstract class Command {
      *
      * @return true if this command causes the program to exit, false otherwise
      */
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 

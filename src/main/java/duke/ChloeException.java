@@ -1,7 +1,15 @@
 package duke;
+/**
+ * Represents a custom exception used in the Chloe application.
+ */
+public class ChloeException extends Exception {
 
-public class ChloeException extends Exception{
-    public ChloeException(String message){
+    /**
+     * Constructs a ChloeException with the specified detail message.
+     *
+     * @param message The detail message.
+     */
+    public ChloeException(String message) {
         super(message);
     }
 }
