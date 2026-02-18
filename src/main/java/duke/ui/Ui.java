@@ -19,8 +19,9 @@ public class Ui {
      * Displays the welcome message when the program starts.
      */
     public void showWelcome() {
-        System.out.println("Hello! I'm Chloe");
-        System.out.println("What can I do for you?");
+        this.showLine(
+                "Hello! I'm Chloe",
+                "What can I do for you?");
     }
 
     /**
@@ -33,12 +34,18 @@ public class Ui {
     }
 
     /**
-     * Displays a normal output line to the user.
+     * Displays one or more lines to the user.
+     * <p>
+     * This method accepts a variable number of string arguments and prints
+     * each line to the standard output on a new line.
      *
-     * @param s the message to display
+     * @param lines the lines to be displayed
      */
-    public void showLine(String s) {
-        System.out.println(s);
+    public void showLine(String... lines) {
+        for (String line : lines) {
+            System.out.println(line);
+        }
+
     }
 
     /**
