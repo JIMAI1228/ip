@@ -33,9 +33,9 @@ public class FindCommand extends Command {
         ui.showLine("Here are the matching tasks in your list:");
 
         int count = 1;
-        for (Task t : tasks.getTasks()) {
-            if (t.getDescription().contains(keyword)) {
-                ui.showLine(count + ". " + t);
+        for (Task task : tasks.getTasks()) {
+            if (task.getDescription().contains(keyword)) {
+                ui.showLine(count + ". " + task);
                 count++;
             }
         }

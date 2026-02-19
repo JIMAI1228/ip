@@ -53,12 +53,12 @@ public class EventCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task t = new Event(desc, fromDate, toDate);
-        tasks.add(t);
+        Task task = new Event(desc, fromDate, toDate);
+        tasks.add(task);
         storage.save(tasks.getTasks());
         ui.showLine(
                 "Got it. I've added this task:",
-                "  " + t,
+                "  " + task,
                 "Now you have " + tasks.size() + " tasks in the list."
         );
     }

@@ -44,13 +44,13 @@ public class UnmarkCommand extends Command {
         }
 
         tasks.get(index).markAsNotDone();
-        Task t = tasks.get(index);
+        Task task = tasks.get(index);
         storage.save(tasks.getTasks());
 
         ui.showLine(
                 "OK, I've marked this task as not done yet:",
                 "  [ ] ",
-                " "+ t.getDescription()
+                " "+ task.getDescription()
         );
     }
 }
