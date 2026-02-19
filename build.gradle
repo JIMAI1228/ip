@@ -48,6 +48,7 @@ application {
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
+    archiveFileName = 'chloe.jar'
 }
 
 run{
@@ -56,4 +57,8 @@ run{
 
 checkstyle {
     toolVersion = '11.0.0'
+}
+
+application {
+    mainClass.set("duke.Main")
 }

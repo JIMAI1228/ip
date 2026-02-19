@@ -28,18 +28,7 @@ public class Chloe {
         boolean isExit = false;
 
         while (!isExit) {
-            try {
-                String input = ui.readCommand();
-                assert input != null : "User input should not be null";
-
-                Command command = Parser.parse(input);
-                assert command != null : "Parser should return a Command";
-
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (Exception e) {
-                ui.showError(e.getMessage());
-            }
+            isExit = processUserInput();
         }
     }
 
@@ -50,23 +39,20 @@ public class Chloe {
      * @return Chloe's response as a string
      */
     public String getResponse(String input) {
-        PrintStream originalOut = System.out;
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        PrintStream tempOut = new PrintStream(buffer, true, StandardCharsets.UTF_8);
+        return captureOutput(() -> {
+            try {
+                String input = ui.readCommand();
+                assert input != null : "User input should not be null";
 
-        try {
-            System.setOut(tempOut);
+                Command command = Parser.parse(input);
+                assert command != null : "Parser should return a Command";
 
-            Command command = Parser.parse(input);
-            command.execute(tasks, ui, storage);
-            this.isExit = command.isExit();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            System.setOut(originalOut);
-        }
-
-        return buffer.toString(StandardCharsets.UTF_8).trim();
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        });
     }
 
     /**
@@ -77,5 +63,68 @@ public class Chloe {
     public boolean isExit() {
         return isExit;
     }
+
+    /**
+     * Reads a single line of user input, parses it into a {@link Command},
+     * executes the command, and determines whether the application should exit.
+     *
+     * <p>
+     * This method encapsulates one iteration of the main command-processing loop.
+     * It assumes that user input and parsed commands are non-null, which is
+     * documented using assertions.
+     * </p>
+     *
+     * @return {@code true} if the executed command indicates the application should exit;
+     *         {@code false} otherwise, including when an exception occurs.
+     */
+    private boolean processUserInput() {
+        try {
+            String input = ui.readCommand();
+            assert input != null : "User input should not be null";
+
+            Command command = Parser.parse(input);
+            assert command != null : "Parser should return a Command";
+
+            command.execute(tasks, ui, storage);
+            return command.isExit();
+        } catch (Exception e) {
+            ui.showError(e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Executes the given action while temporarily redirecting {@code System.out},
+     * captures all printed output, and returns it as a string.
+     *
+     * <p>
+     * This method is used to adapt console-based output into GUI-compatible
+     * responses by intercepting printed messages during command execution.
+     * </p>
+     *
+     * <p>
+     * The original {@code System.out} stream is restored after execution,
+     * even if the action throws an exception.
+     * </p>
+     *
+     * @param action the operation whose output should be captured
+     * @return the captured output as a trimmed string
+     */
+    private String captureOutput(Runnable action) {
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        PrintStream tempOut = new PrintStream(buffer, true, StandardCharsets.UTF_8);
+
+        System.setOut(tempOut);
+
+        try {
+            action.run();
+        } finally {
+            System.setOut(originalOut);
+        }
+
+        return buffer.toString(StandardCharsets.UTF_8).trim();
+    }
+
 }
 

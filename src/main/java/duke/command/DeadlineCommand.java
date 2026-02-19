@@ -53,13 +53,13 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task t = new Deadline(desc, date);
-        tasks.add(t);
+        Task task = new Deadline(desc, date);
+        tasks.add(task);
         storage.save(tasks.getTasks());
 
         ui.showLine(
                 "Got it. I've added this task:",
-                "  " + t,
+                "  " + task,
                 "Now you have " + tasks.size() + " tasks in the list."
         );
     }

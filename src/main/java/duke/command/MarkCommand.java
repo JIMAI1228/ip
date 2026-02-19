@@ -44,12 +44,12 @@ public class MarkCommand extends Command {
         }
 
         tasks.get(index).markAsDone();
-        Task t = tasks.get(index);
+        Task task = tasks.get(index);
         storage.save(tasks.getTasks());
 
         ui.showLine(
                 "Nice! I've marked this task as done:",
-                "  [X] " + t.getDescription()
+                "  [X] " + task.getDescription()
         );
     }
 }
