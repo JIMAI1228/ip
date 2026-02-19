@@ -6,29 +6,33 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+import java.util.Arrays;
+
 /**
  * Represents a command that marks a task as done.
  */
 public class MarkCommand extends Command {
 
-    private final int index;
+    private final int[] indexes;
 
     /**
      * Constructs a MarkCommand using the given argument.
      *
-     * @param arg the task index provided by the user
+     * @param args the task indexes provided by the user
      * @throws ChloeException if the index is invalid
      */
-    public MarkCommand(String arg) throws ChloeException {
+    public MarkCommand(String args) throws ChloeException {
         try {
-            this.index = Integer.parseInt(arg.trim()) - 1;
+            this.indexes = Arrays.stream(args.trim().split("\\s+"))
+                    .mapToInt(s -> Integer.parseInt(s) - 1)
+                    .toArray();
         } catch (Exception e) {
-            throw new ChloeException("This is an invalid task number.");
+            throw new ChloeException("Invalid task number(s).");
         }
     }
 
     /**
-     * Executes the mark command by marking the specified task as done.
+     * Executes the mark command by marking the specified tasks as done.
      *
      * @param tasks the task list
      * @param ui the user interface
@@ -39,18 +43,24 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws ChloeException {
 
-        if (index < 0 || index >= tasks.size()) {
-            throw new ChloeException("This is an invalid task number.");
+        for (int i : indexes) {
+            if (i < 0 || i >= tasks.size()) {
+                throw new ChloeException("Invalid task number(s).");
+            }
         }
 
-        tasks.get(index).markAsDone();
-        Task task = tasks.get(index);
+        for (int i : indexes) {
+            tasks.get(i).markAsDone();
+        }
+
         storage.save(tasks.getTasks());
 
-        ui.showLine(
-                "Nice! I've marked this task as done:",
-                "  [X] " + task.getDescription()
-        );
+        ui.showLine("Nice! I've marked these tasks as done:");
+
+        for (int i : indexes) {
+            Task task = tasks.get(i);
+            ui.showLine("  [X] " + task.getDescription());
+        }
     }
 }
 

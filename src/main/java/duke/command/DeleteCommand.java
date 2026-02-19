@@ -6,29 +6,36 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+import java.util.Arrays;
+
 /**
  * Represents a command that deletes a task from the task list.
  */
 public class DeleteCommand extends Command {
 
-    private final int index;
+    private final int[] indexes;
 
     /**
      * Constructs a DeleteCommand using the given argument.
      *
-     * @param arg the task index provided by the user
+     * @param args the task indexes provided by the user
      * @throws ChloeException if the index is invalid
      */
-    public DeleteCommand(String arg) throws ChloeException {
+    public DeleteCommand(String args) throws ChloeException {
         try {
-            this.index = Integer.parseInt(arg.trim()) - 1;
+            String[] parts = args.trim().split("\\s+");
+            indexes = new int[parts.length];
+
+            for (int i = 0; i < parts.length; i++) {
+                indexes[i] = Integer.parseInt(parts[i]) - 1;
+            }
         } catch (Exception e) {
-            throw new ChloeException("This is an invalid task number.");
+            throw new ChloeException("Invalid task number(s).");
         }
     }
 
     /**
-     * Executes the delete command by removing the specified task.
+     * Executes the delete command by removing the specified tasks.
      *
      * @param tasks the task list
      * @param ui the user interface
@@ -39,18 +46,21 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws ChloeException {
 
-        if (index < 0 || index >= tasks.size()) {
-            throw new ChloeException("This is an invalid task number.");
+        for (int i : indexes) {
+            if (i < 0 || i >= tasks.size()) {
+                throw new ChloeException("Invalid task number(s).");
+            }
         }
 
-        Task removed = tasks.remove(index);
-        storage.save(tasks.getTasks());
+        Arrays.sort(indexes);
 
-        ui.showLine(
-                "Noted. I've removed this task:",
-                "    " + removed,
-                "Now you have " + tasks.size() + " tasks in the list."
-        );
+        for (int i = indexes.length - 1; i >= 0; i--) {
+            Task removed = tasks.remove(indexes[i]);
+            ui.showLine("Noted. I've removed this task:" + removed);
+        }
+
+        storage.save(tasks.getTasks());
+        ui.showLine("Now you have " + tasks.size() + " tasks.");
     }
 }
 

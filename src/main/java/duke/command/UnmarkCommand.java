@@ -6,22 +6,26 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+import java.util.Arrays;
+
 /**
  * Represents a command that marks a task as not done.
  */
 public class UnmarkCommand extends Command {
 
-    private final int index;
+    private final int[] indexes;
 
     /**
      * Constructs an UnmarkCommand using the given argument.
      *
-     * @param arg the task index provided by the user
+     * @param args the task indexes provided by the user
      * @throws ChloeException if the index is invalid
      */
-    public UnmarkCommand(String arg) throws ChloeException {
+    public UnmarkCommand(String args) throws ChloeException {
         try {
-            this.index = Integer.parseInt(arg.trim()) - 1;
+            this.indexes = Arrays.stream(args.trim().split("\\s+"))
+                    .mapToInt(s -> Integer.parseInt(s) - 1)
+                    .toArray();
         } catch (Exception e) {
             throw new ChloeException("This is an invalid task number.");
         }
@@ -39,18 +43,23 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws ChloeException {
 
-        if (index < 0 || index >= tasks.size()) {
-            throw new ChloeException("This is an invalid task number.");
+        for (int i : indexes) {
+            if (i < 0 || i >= tasks.size()) {
+                throw new ChloeException("Invalid task number(s).");
+            }
         }
 
-        tasks.get(index).markAsNotDone();
-        Task task = tasks.get(index);
+        for (int i : indexes) {
+            tasks.get(i).markAsNotDone();
+        }
+
         storage.save(tasks.getTasks());
 
-        ui.showLine(
-                "OK, I've marked this task as not done yet:",
-                "  [ ] ",
-                " "+ task.getDescription()
-        );
+        ui.showLine("OK, I've marked these tasks as not done yet:");
+
+        for (int i : indexes) {
+            Task task = tasks.get(i);
+            ui.showLine("  [ ] " + task.getDescription());
+        }
     }
 }
