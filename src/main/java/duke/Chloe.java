@@ -41,7 +41,12 @@ public class Chloe {
     public String getResponse(String input) {
         return captureOutput(() -> {
             try {
+                String input = ui.readCommand();
+                assert input != null : "User input should not be null";
+
                 Command command = Parser.parse(input);
+                assert command != null : "Parser should return a Command";
+
                 command.execute(tasks, ui, storage);
                 isExit = command.isExit();
             } catch (Exception e) {
