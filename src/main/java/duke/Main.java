@@ -23,6 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
 
             Scene scene = new Scene(ap);
+            scene.getStylesheets().add(Main.class.getResource("/view/dialog.css").toExternalForm());
             stage.setTitle("Chloe");
             stage.setScene(scene);
 

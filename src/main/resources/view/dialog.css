@@ -1,0 +1,17 @@
+.dialog-user {
+    -fx-background-color: #c7fac7;
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+}
+
+.dialog-bot {
+    -fx-background-color: #d2d2fa;
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+}
+
+.dialog-error {
+    -fx-background-color: #fdd0d0;
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+}

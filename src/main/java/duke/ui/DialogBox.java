@@ -37,6 +37,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        dialog.getStyleClass().add("dialog-bubble");
     }
 
     private void flip() {
@@ -47,11 +48,21 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("dialog-user");
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("dialog-bot");
+        db.flip();
+        return db;
+    }
+
+    public static DialogBox getErrorDialog(String text, Image img) {
+        DialogBox db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("dialog-error");
         db.flip();
         return db;
     }

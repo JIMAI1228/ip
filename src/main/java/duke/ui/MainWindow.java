@@ -54,12 +54,20 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
+        String input = userInput.getText().trim();
+        if (input.isEmpty()) {
+            return;
+        }
+
         String response = chloe.getResponse(input);
+
+        boolean isError = isLikelyError(response);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, chloeImage)
+                isError
+                        ? DialogBox.getErrorDialog(response, chloeImage)
+                        : DialogBox.getDukeDialog(response, chloeImage)
         );
 
         userInput.clear();
@@ -67,5 +75,25 @@ public class MainWindow extends AnchorPane {
         if (chloe.isExit()) {
             Platform.exit();
         }
+    }
+
+    /**
+     * Heuristically determines if a response is an error message.
+     *
+     * @param response the response text from Chloe
+     * @return true if the response is likely an error message
+     */
+    private boolean isLikelyError(String response) {
+        if (response == null) {
+            return false;
+        }
+        String s = response.toLowerCase();
+        return s.contains("invalid")
+                || s.contains("error")
+                || s.contains("oops")
+                || s.contains("failed")
+                || s.contains("please use")
+                || s.contains("cannot")
+                || s.contains("don't");
     }
 }
