@@ -8,6 +8,8 @@ import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.parser.DateTimeParser;
+import java.time.format.DateTimeParseException;
 import duke.ui.Ui;
 
 /**
@@ -28,19 +30,15 @@ public class DeadlineCommand extends Command {
         String[] parts = input.substring(9).split(" /by ");
 
         if (parts.length < 2) {
-            throw new ChloeException("Deadline requires /by ...");
+            throw new ChloeException("Deadline requires stuff and /by ...");
         }
 
         this.desc = parts[0].trim();
 
-        DateTimeFormatter formatter =
-                DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
         try {
-            this.date = LocalDateTime.parse(parts[1], formatter);
-        } catch (Exception e) {
-            throw new ChloeException(
-                    "Please use date form in d/M/yyyy HHmm.");
+            this.date = DateTimeParser.parseStrict(parts[1]);
+        } catch (DateTimeParseException e) {
+            throw new ChloeException("This is an Invalid date form. Use d/M/yyyy HHmm.");
         }
     }
 

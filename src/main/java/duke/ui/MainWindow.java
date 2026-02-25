@@ -90,10 +90,11 @@ public class MainWindow extends AnchorPane {
         String s = response.toLowerCase();
         return s.contains("invalid")
                 || s.contains("error")
-                || s.contains("oops")
+                || s.contains("requires")
                 || s.contains("failed")
                 || s.contains("please use")
                 || s.contains("cannot")
-                || s.contains("don't");
+                || s.contains("don't")
+                || s.contains("must");
     }
 }

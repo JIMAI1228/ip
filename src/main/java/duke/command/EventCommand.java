@@ -2,8 +2,10 @@ package duke.command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import duke.ChloeException;
+import duke.parser.DateTimeParser;
 import duke.storage.Storage;
 import duke.task.Event;
 import duke.task.Task;
@@ -34,13 +36,15 @@ public class EventCommand extends Command {
 
         this.desc = parts[0].trim();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
         try {
-            this.fromDate = LocalDateTime.parse(parts[1], formatter);
-            this.toDate = LocalDateTime.parse(parts[2], formatter);
-        } catch (Exception e) {
-            throw new ChloeException("Please use date form in d/M/yyyy HHmm.");
+            this.fromDate = DateTimeParser.parseStrict(parts[1]);
+            this.toDate = DateTimeParser.parseStrict(parts[2]);
+        } catch (DateTimeParseException e) {
+            throw new ChloeException("This is an Invalid date form. Use d/M/yyyy HHmm.");
+        }
+
+        if (!fromDate.isBefore(toDate)) {
+            throw new ChloeException("Event start time must be before end time.");
         }
     }
 
