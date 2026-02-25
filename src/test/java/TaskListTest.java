@@ -1,3 +1,4 @@
+import duke.ChloeException;
 import duke.task.TaskList;
 import duke.task.ToDo;
 import org.junit.jupiter.api.Test;
@@ -6,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TaskListTest {
 
     @Test
-    public void addTask_sizeIncreases() {
+    public void addTask_sizeIncreases() throws ChloeException{
         TaskList list = new TaskList();
         list.add(new ToDo("read"));
 
@@ -14,7 +15,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void removeTask_sizeDecreases() {
+    public void removeTask_sizeDecreases() throws ChloeException {
         TaskList list = new TaskList();
         list.add(new ToDo("read"));
         list.remove(0);

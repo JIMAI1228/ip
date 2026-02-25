@@ -50,7 +50,7 @@ public class DeadlineCommand extends Command {
      * @param storage the storage handler
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChloeException {
         Task task = new Deadline(desc, date);
         tasks.add(task);
         storage.save(tasks.getTasks());

@@ -56,7 +56,7 @@ public class EventCommand extends Command {
      * @param storage the storage handler
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChloeException {
         Task task = new Event(desc, fromDate, toDate);
         tasks.add(task);
         storage.save(tasks.getTasks());

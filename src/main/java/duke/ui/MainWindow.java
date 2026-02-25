@@ -95,6 +95,7 @@ public class MainWindow extends AnchorPane {
                 || s.contains("please use")
                 || s.contains("cannot")
                 || s.contains("don't")
-                || s.contains("must");
+                || s.contains("must")
+                || s.contains("oh");
     }
 }

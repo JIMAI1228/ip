@@ -1,5 +1,8 @@
 package duke.task;
 
+import duke.ChloeException;
+
+import java.util.stream.Stream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +69,14 @@ public class TaskList {
      *
      * @param task the task to be added
      */
-    public void add(Task task) {
+    public void add(Task task) throws ChloeException {
+        boolean duplicate = tasks.stream()
+                        .anyMatch(t -> t.toFileString().equals(task.toFileString()));
+
+        if(duplicate){
+            throw new ChloeException("Ohh! This is a duplicate task:" + task);
+        }
+
         tasks.add(task);
     }
 
