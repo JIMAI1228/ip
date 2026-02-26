@@ -7,18 +7,18 @@ Chloe is a simple tacks tracking chatbot with a GUI. Users are able to add tasks
 2. Type a command in the input box and press **Enter** or click **Send**.
 
 ## Command Summary
-| Action       | Command format                                                | Example                                                |
-|--------------|---------------------------------------------------------------|--------------------------------------------------------|
-| Add todo     | `todo DESCRIPTION`                                            | `todo read book`                                       |
-| Add deadline | `deadline DESCRIPTION /by dd/MM/yyyy HHmm`                    | `deadline homework /by 20/02/2026 2359`                |
-| Add event    | `event DESCRIPTION /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm` | `event exam /from 01/06/2026 1600 /to 01/06/2026 1800` |
-| List tasks   | `list`                                                        | `list`                                                 |
-| Find tasks   | `find KEYWORD`                                                | `find homework`                                        |
-| Mark done    | `mark INDEX` or `mark INDEXES`                                | `mark 2` / `mark 1 3 5`                                |
-| Unmark       | `unmark INDEX` or `unmark INDEXES`                            | `unmark 2` / `unmark 1 3`                              |
-| Delete       | `delete INDEX` or `delete INDEXES`                            | `delete 2` / `delete 1 4 7`                            |
-| Search help  | `help`                                                        | `help`                                                 |
-| Exit         | `bye`                                                         | `bye`                                                  |
+| Action       | Command format                                            | Example |
+|--------------|-----------------------------------------------------------|---|
+| Add todo     | `todo DESCRIPTION`                                        | `todo read book` |
+| Add deadline | `deadline DESCRIPTION /by d/M/yyyy HHmm`                  | `deadline homework /by 20/2/2026 2359` |
+| Add event    | `event DESCRIPTION /from d/M/yyyy HHmm /to d/M/yyyy HHmm` | `event exam /from 1/6/2026 1600 /to 1/6/2026 1800` |
+| List tasks   | `list`                                                    | `list` |
+| Find tasks   | `find KEYWORD`                                            | `find homework` |
+| Mark done    | `mark INDEX` or `mark INDEXES`                            | `mark 2` / `mark 1 3 5` |
+| Unmark       | `unmark INDEX` or `unmark INDEXES`                        | `unmark 2` / `unmark 1 3` |
+| Delete       | `delete INDEX` or `delete INDEXES`                        | `delete 2` / `delete 1 4 7` |
+| Search help  | `help`                                                    | `help` |
+| Exit         | `bye`                                                     | `bye` |
 
 > Notes:
 > - Indexes start from **1**(Use 'list' to see the index of each task).
