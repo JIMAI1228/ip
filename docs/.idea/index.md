@@ -1,3 +1,7 @@
+---
+layout: default
+title: Chloe User Guide
+---
 # Chloe User Guide
 
 Chloe is a simple tacks tracking chatbot with a GUI. Users are able to add tasks, list them, find a certain task by keyword, mark and unmark completion, and delete tasks including multiple tasks at once.
@@ -39,11 +43,11 @@ Chloe is a simple tacks tracking chatbot with a GUI. Users are able to add tasks
 - **Mark / Unmark**: changes completion status of one or more tasks.
 - **Delete**: remove one or more tasks at once.
 
-### Finding Tasks 
+### Finding Tasks
 - **Find**: filters tasks whose description contains the keyword.
 
-### Getting help 
+### Getting help
 - **Help**: shows the list of supported commands and their usage.
 
 ### FAQ
-- **Invalid date**: Check the format 'dd/MM/yyyy HHmm' and check whether the date exists(e.g., Fed 30 is invalid).
+- **Invalid date**: Check the format 'dd/MM/yyyy HHmm' and check whether the date exists(e.g., Feb 30 is invalid).
