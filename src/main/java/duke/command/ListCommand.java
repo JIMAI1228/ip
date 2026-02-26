@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.ChloeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -19,7 +20,11 @@ public class ListCommand extends Command {
      * @param storage the storage handler
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChloeException {
+        if(tasks.isEmpty()) {
+            throw new ChloeException("Oh! There is no task now. Please add some tasks.");
+        }
+
         ui.showLine("Here are the tasks in your list:");
         IntStream.range(0, tasks.size())
                 .forEach(i ->

@@ -81,6 +81,15 @@ public class TaskList {
     }
 
     /**
+     * Checks whether list is empty.
+     *
+     * @return the result of checking whether list is empty
+     */
+    public boolean isEmpty() {
+        return this.tasks.isEmpty();
+    }
+
+    /**
      * Returns the list of tasks.
      * <p>
      * This is mainly used by Storage for saving tasks to disk.
