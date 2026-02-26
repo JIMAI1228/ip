@@ -2,16 +2,7 @@ package duke.parser;
 
 
 import duke.ChloeException;
-import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.EventCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.TodoCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
 
 /**
  * Parses user input strings and converts them into executable Command objects.
@@ -87,6 +78,9 @@ public class Parser {
             }
             return new FindCommand(parts[1]);
 
+        case "help":
+            return new HelpCommand();
+            
         default:
             throw new ChloeException("I'm sorry, I don't know what that means.");
         }

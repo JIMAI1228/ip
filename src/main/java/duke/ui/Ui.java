@@ -21,7 +21,8 @@ public class Ui {
     public void showWelcome() {
         this.showLine(
                 "Hello! I'm Chloe",
-                "What can I do for you?");
+                "What can I do for you?",
+                "(Enter help if you want to see all supported command)");
     }
 
     /**

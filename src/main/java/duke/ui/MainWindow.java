@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
     public void setChloe(Chloe c) {
         chloe = c;
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog("Hello! I'm Chloe.\nWhat can I do for you?", chloeImage)
+                DialogBox.getDukeDialog("Hello! I'm Chloe.\nWhat can I do for you?\n(Enter 'help' if you want to see all supported command)", chloeImage)
         );
     }
 
