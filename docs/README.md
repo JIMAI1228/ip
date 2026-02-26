@@ -1,30 +1,45 @@
-# Duke User Guide
+# Chloe User Guide
 
-// Update the title above to match the actual product name
+Chloe is a simple tacks tracking chatbot with a GUI. Users are able to add tasks, list them, find a certain task by keyword, mark and unmark completion, and delete tasks including multiple tasks at once.
 
-// Product screenshot goes here
+## Quick start
+1. Launch the app by running provided JAR.
+2. Type a command in the input box and press **Enter** or click **Send**.
 
-// Product intro goes here
+## Command Summary
+| Action | Command format                                                | Example                                                |
+|---|---------------------------------------------------------------|--------------------------------------------------------|
+| Add todo | `todo DESCRIPTION`                                            | `todo read book`                                       |
+| Add deadline | `deadline DESCRIPTION /by dd/MM/yyyy HHmm`                    | `deadline homework /by 20/02/2026 2359`                |
+| Add event | `event DESCRIPTION /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm` | `event exam /from 01/06/2026 1600 /to 01/06/2026 1800` |
+| List tasks | `list`                                                        | `list`                                                 |
+| Find tasks | `find KEYWORD`                                                | `find homework`                                        |
+| Mark done | `mark INDEX` or `mark INDEXES`                                | `mark 2` / `mark 1 3 5`                                |
+| Unmark | `unmark INDEX` or `unmark INDEXES`                            | `unmark 2` / `unmark 1 3`                              |
+| Delete | `delete INDEX` or `delete INDEXES`                            | `delete 2` / `delete 1 4 7`                            |
+| Exit | `bye`                                                         | `bye`                                                  |
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
+> Notes:
+> - Indexes start from **1**(Use 'list' to see the index of each task).
+> - Times use the format **dd/MM/yyyy HHmm**.
+> - Chloe will show an error message if the date is invalid(e.g., 30/02/2026 1600).
+> - Chloe will also show an error message if a duplicate task is entered.
 
 
-## Feature XYZ
+## Features
 
-// Feature details
+### Adding Tasks
+- **Todo**: store a task description.
+- **Deadline**: store a task with a due time.
+- **Event**: store a task with a starting and an end time(start must be before the end).
+
+### Managing Tasks
+- **List**: show all tasks with their index.
+- **Mark / Unmark**: changes completion status of one or more tasks.
+- **Delete**: remove one or more tasks at once.
+
+### Finding Tasks 
+- **Find**: filters tasks whose description contains the keyword.
+
+### FAQ
+- **Invalid date**: Check the format 'dd/MM/yyyy HHmm' and check whether the date exists(e.g., Fed 30 is invalid).
