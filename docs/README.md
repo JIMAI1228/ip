@@ -74,4 +74,4 @@ Chloe is a simple tacks tracking chatbot with a GUI. Users are able to add tasks
 - **Help**: shows the list of supported commands and their usage.
 
 ### FAQ
-- **Invalid date**: Check the format 'dd/MM/yyyy HHmm' and check whether the date exists(e.g., Fed 30 is invalid).
+- **Invalid date**: Check the format 'dd/MM/yyyy HHmm' and check whether the date exists(e.g., Feb 30 is invalid).

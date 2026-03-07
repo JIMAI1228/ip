@@ -1,6 +1,6 @@
-import duke.ChloeException;
-import duke.task.TaskList;
-import duke.task.ToDo;
+import chloe.ChloeException;
+import chloe.task.TaskList;
+import chloe.task.ToDo;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

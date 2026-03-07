@@ -1,4 +1,4 @@
-import duke.task.Event;
+import chloe.task.Event;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
