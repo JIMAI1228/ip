@@ -34,6 +34,9 @@ public class EventCommand extends Command {
         }
 
         this.desc = parts[0].trim();
+        if (this.desc.isEmpty()){
+            throw new ChloeException("Event description cannot be empty");
+        }
 
         try {
             this.fromDate = DateTimeParser.parseStrict(parts[1]);

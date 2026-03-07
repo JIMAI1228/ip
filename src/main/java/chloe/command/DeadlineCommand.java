@@ -33,11 +33,14 @@ public class DeadlineCommand extends Command {
         }
 
         this.desc = parts[0].trim();
+        if (desc.isEmpty()) {
+            throw new ChloeException("Deadline description cannot be empty.");
+        }
 
         try {
             this.date = DateTimeParser.parseStrict(parts[1]);
         } catch (DateTimeParseException e) {
-            throw new ChloeException("This is an Invalid date form. Use d/M/yyyy HHmm.");
+            throw new ChloeException("This is an Invalid date or in an Invalid date. Use d/M/yyyy HHmm.");
         }
     }
 
