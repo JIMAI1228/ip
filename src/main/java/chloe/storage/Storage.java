@@ -82,6 +82,12 @@ public class Storage {
      * @param tasks the list of tasks to be saved
      */
     public void save(List<Task> tasks) {
+        File file = new File(filePath);
+        File parent = file.getParentFile();
+        if (parent != null) {
+            parent.mkdirs();
+        }
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             for (Task t : tasks) {
                 bw.write(t.toFileString());
