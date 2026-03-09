@@ -20,7 +20,7 @@ import chloe.task.ToDo;
  */
 public class Storage {
 
-    private final String filePath = "./data/duke.txt";
+    private final String filePath = "./data/chloe.txt";
 
     /**
      * Loads tasks from the storage file.
@@ -54,7 +54,7 @@ public class Storage {
                     task = new Deadline(desc, date);
                     break;
                 case "E":
-                    String[] fromTo = parts[3].split("｜");
+                    String[] fromTo = parts[3].split(" ~ ");
                     LocalDateTime from = LocalDateTime.parse(fromTo[0]);
                     LocalDateTime to = LocalDateTime.parse(fromTo[1]);
                     task = new Event(desc, from, to);

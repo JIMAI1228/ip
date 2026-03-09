@@ -38,7 +38,7 @@ public class Event extends Task {
     public String toFileString() {
         return "E | " + (getStatus().equals("X") ? "1" : "0")
                 + " | " + getDescription()
-                + " | " + from + "｜" + to;
+                + " | " + from + " ~ " + to;
     }
 
     /**
