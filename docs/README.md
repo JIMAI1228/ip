@@ -26,6 +26,9 @@ Chloe is a simple tacks tracking chatbot with a GUI. Users are able to add tasks
 
 ### Find tasks
 **Format:** `find KEYWORD`  
+Chloe lists all tasks whose description contains the given keyword **as a substring**.
+For example, 'find a' matches tasks contains 'a' anywhere in the description (e.g., 'read', 'assignment').
+
 **Example:** `find homework`
 
 ### Mark done (supports multiple indexes)
@@ -48,8 +51,10 @@ Chloe is a simple tacks tracking chatbot with a GUI. Users are able to add tasks
 **Format:** `bye`  
 **Example:** `bye`
 
-> Notes:
+> ***Notes:***
 > - Indexes start from **1**(Use 'list' to see the index of each task).
+> - The indexes used in 'mark', 'unmark' and 'delete' refers to the tasks' **current position in the 'list' output**. 
+>   Index may change after deleting tasks.
 > - Times use the format **dd/MM/yyyy HHmm**.
 > - Chloe will show an error message if the date is invalid(e.g., 30/02/2026 1600).
 > - Chloe will also show an error message if a duplicate task is entered.
