@@ -39,34 +39,10 @@ public class Storage {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                String type = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String desc = parts[2];
-
-                Task task;
-                switch (type) {
-                case "T":
-                    task = new ToDo(desc);
-                    break;
-                case "D":
-                    LocalDateTime date = LocalDateTime.parse(parts[3]);
-                    task = new Deadline(desc, date);
-                    break;
-                case "E":
-                    String[] fromTo = parts[3].split(" ~ ");
-                    LocalDateTime from = LocalDateTime.parse(fromTo[0]);
-                    LocalDateTime to = LocalDateTime.parse(fromTo[1]);
-                    task = new Event(desc, from, to);
-                    break;
-                default:
-                    continue;
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
                 }
-
-                if (isDone) {
-                    task.markAsDone();
-                }
-                tasks.add(task);
             }
 
         } catch (IOException e) {
@@ -74,6 +50,38 @@ public class Storage {
         }
 
         return tasks;
+    }
+
+    private Task parseTask(String line) {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String desc = parts[2];
+
+        Task task;
+        switch (type) {
+            case "T":
+                task = new ToDo(desc);
+                break;
+            case "D":
+                LocalDateTime date = LocalDateTime.parse(parts[3]);
+                task = new Deadline(desc, date);
+                break;
+            case "E":
+                String[] fromTo = parts[3].split(" ~ ");
+                LocalDateTime from = LocalDateTime.parse(fromTo[0]);
+                LocalDateTime to = LocalDateTime.parse(fromTo[1]);
+                task = new Event(desc, from, to);
+                break;
+            default:
+                return null;
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 
     /**

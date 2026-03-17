@@ -32,50 +32,31 @@ public class Parser {
             return new ListCommand();
 
         case "mark":
-            if (parts.length < 2) {
-                throw new ChloeException("The description of a mask cannot be empty. ");
-            }
+            requireArgument(parts, "The description of a mark cannot be empty.");
             return new MarkCommand(parts[1]);
 
         case "unmark":
-            if (parts.length < 2) {
-                throw new ChloeException("The description of an unmask cannot be empty. ");
-            }
-
+            requireArgument(parts, "The description of an unmask cannot be empty. ");
             return new UnmarkCommand(parts[1]);
 
         case "delete":
-            if (parts.length < 2) {
-                throw new ChloeException("The description of a delete cannot be empty. ");
-            }
-
+            requireArgument(parts, "The description of a delete cannot be empty. ");
             return new DeleteCommand(parts[1]);
 
         case "todo":
-            if (parts.length < 2) {
-                throw new ChloeException("The description of a todo cannot be empty. ");
-            }
-
+            requireArgument(parts, "The description of a todo cannot be empty. ");
             return new TodoCommand(parts[1]);
 
         case "deadline":
-            if (parts.length < 2) {
-                throw new ChloeException("The description of a deadline cannot be empty. ");
-            }
-
+            requireArgument(parts, "The description of a deadline cannot be empty. ");
             return new DeadlineCommand(input);
 
         case "event":
-            if (parts.length < 2) {
-                throw new ChloeException("The description of an event cannot be empty. ");
-            }
-
+            requireArgument(parts, "The description of an event cannot be empty. ");
             return new EventCommand(input);
 
         case "find":
-            if (parts.length < 2) {
-                throw new ChloeException("Keyword cannot be empty.");
-            }
+            requireArgument(parts, "Keyword cannot be empty.");
             return new FindCommand(parts[1]);
 
         case "help":
@@ -83,6 +64,19 @@ public class Parser {
             
         default:
             throw new ChloeException("I'm sorry, I don't know what that means.");
+        }
+    }
+
+    /**
+     * Checks whether the command contains an argument.
+     *
+     * @param parts the split user input
+     * @param message the exception message to throw if the argument is missing
+     * @throws ChloeException if the argument is missing
+     */
+    private static void requireArgument(String[] parts, String message) throws ChloeException {
+        if (parts.length < 2) {
+            throw new ChloeException(message);
         }
     }
 }
