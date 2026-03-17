@@ -10,6 +10,9 @@ import java.util.Locale;
  */
 public class Deadline extends Task {
 
+    /**
+     * The due date and time of this deadline task.
+     */
     private LocalDateTime by;
 
     /**

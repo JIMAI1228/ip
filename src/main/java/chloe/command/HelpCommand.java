@@ -4,6 +4,10 @@ import chloe.storage.Storage;
 import chloe.task.TaskList;
 import chloe.ui.Ui;
 
+/**
+ * Represents a command that displays the list of supported user commands
+ * and their usage instructions.
+ */
 public class HelpCommand extends Command {
 
     @Override
